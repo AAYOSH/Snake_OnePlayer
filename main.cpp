@@ -71,9 +71,9 @@ int main()
 	    if(c == 'w')
 		  snake->update_vel(0,-10);
 	    if(c == 'd')
-		  snake->update_vel(10,0);
+		  snake->update_vel(20,0);
 	    if(c == 'a')
-		  snake->update_vel(-10,0);
+		  snake->update_vel(-20,0);
 		  
 	  
 	    m->update(deltaT);

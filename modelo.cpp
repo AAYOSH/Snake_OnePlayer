@@ -16,8 +16,7 @@
 
 using namespace std::chrono;
 
-
-
+int score = 0;
 /////////////////*******classe choque********************//////////////////////
 Choque::Choque(Cobra_corpo *cobra){
       this->cobra = cobra;
@@ -26,10 +25,10 @@ Choque::Choque(Cobra_corpo *cobra){
 bool Choque::colisao(Cobra_corpo *cobra){// caso a cobra se choque com alguma das extremidades
       int pos_x,pos_y;
       int max_x,max_y;
-      getmaxyx(stdscr,max_x,max_y); // obtenho extremos da minha tela.
+      getmaxyx(stdscr,max_y,max_x); // obtenho extremos da minha tela.
       
       pos_x = cobra->get_posicaoX();
-      pos_y = cobra->get_velocidadeY();
+      pos_y = cobra->get_posicaoY();
       
       
       if(pos_x >= max_x || pos_x < 0)
@@ -57,9 +56,12 @@ void Movimento::update(float deltaT){
  //     
       int foodx = food->getcx();
       int foody = food->getcy();
-      
-      if( (foodx == new_posx) && (foody == new_posy) )
+      mvprintw(1,1 ,"foodx = %d, foody = %d, pos_x = %d, posy = %d ",foodx,foody,cobra->get_posicaoX(),cobra->get_posicaoY());
+      if( foodx == cobra->get_posicaoY() && foody == cobra->get_posicaoX() ){
+	    mvprintw(foodx,foody ," ");
 	    food->update();
+	    //score++;
+      }
 }
 /////*************************** CLASS Comida **********************88//////////////////
 
@@ -69,9 +71,8 @@ Comida::Comida(){
       
       
       srand(time(NULL));
-      this->posicaoY =  random()%(max_y-6)+4;
-      this->posicaoX = random()%(max_x-4)+2;
-     
+      this->posicaoY =  random()%(max_y) ;
+      this->posicaoX = random()%(max_x) ;
       
 }
 
@@ -84,9 +85,8 @@ void Comida::update(){
       
       srand(time(NULL));
       
-      this->posicaoY =  random()%(max_y-6)+4;
-      this->posicaoX = random()%(max_x-4)+2;
-      
+      this->posicaoY =  random()%(max_y);
+      this->posicaoX = random()%(max_x);
 }
 
 int Comida::getcx(){
@@ -172,7 +172,8 @@ void Tela::update() {
       
       foodx = food->getcx();// print n posicao da commida*/
       foody = food->getcy();
-      mvprintw(foody,foodx,"*");
+   //   mvprintw(1,1,"foodx =%d, foody = %d",foodx,foody);
+      mvprintw(foodx,foody,"*");
       // Atualiza tela
       refresh();
       
