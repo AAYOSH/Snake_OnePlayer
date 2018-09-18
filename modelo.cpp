@@ -50,13 +50,16 @@ void Movimento::update(float deltaT){
       int velx = cobra->get_velocidadeX();
       int vely = cobra->get_velocidadeY();
       cobra->update_old(cobra->get_posicaoX(),cobra->get_posicaoY()); // guarda posicao antiga antes de atualizar
-      float new_posx = cobra->get_posicaoX() + (float)deltaT * velx/1000;
-      float new_posy = cobra->get_posicaoY() + (float)deltaT * vely/1000;
+ //     float new_posx = cobra->get_posicaoX() + (float)deltaT * velx/1000;
+ //     float new_posy = cobra->get_posicaoY() + (float)deltaT * vely/1000;
+      float new_posx = cobra->get_posicaoX() + velx; //significa in/decrementar 1;
+      float new_posy = cobra->get_posicaoY() + vely;
       cobra->update(new_posx,new_posy);  
  //     
       int foodx = food->getcx();
       int foody = food->getcy();
-      mvprintw(1,1 ,"foodx = %d, foody = %d, pos_x = %d, posy = %d ",foodx,foody,cobra->get_posicaoX(),cobra->get_posicaoY());
+/*      mvprintw(1,1 ,"foodx = %d, foody = %d, pos_x = %d, posy = %d ",foodx,foody,cobra->get_posicaoX(),cobra->get_posicaoY());
+*/
       if( foodx == cobra->get_posicaoY() && foody == cobra->get_posicaoX() ){
 	    mvprintw(foodx,foody ," ");
 	    food->update();
@@ -71,8 +74,8 @@ Comida::Comida(){
       
       
       srand(time(NULL));
-      this->posicaoY =  random()%(max_y) ;
-      this->posicaoX = random()%(max_x) ;
+      this->posicaoY =  random()%(max_y) +10 ;
+      this->posicaoX = random()%(max_x) +10 ;
       
 }
 

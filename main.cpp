@@ -30,7 +30,7 @@ int main()
       char derrota[] = "********************PERDEU******************";
       
       Comida *food = new Comida();
-      Cobra_corpo *snake = new Cobra_corpo(1, 10, 0, 0, 0);
+      Cobra_corpo *snake = new Cobra_corpo(1, 1, 0, 0, 0);
       
       
       // cria classe Movimento
@@ -66,14 +66,14 @@ int main()
 	    if (c=='q') 
 		  break;
 	    if(c == 's'){
-		  snake->update_vel(0,10);
+		  snake->update_vel(0,1);
 	    }
 	    if(c == 'w')
-		  snake->update_vel(0,-10);
+		  snake->update_vel(0,-1);
 	    if(c == 'd')
-		  snake->update_vel(20,0);
+		  snake->update_vel(1,0);
 	    if(c == 'a')
-		  snake->update_vel(-20,0);
+		  snake->update_vel(-1,0);
 		  
 	  
 	    m->update(deltaT);
