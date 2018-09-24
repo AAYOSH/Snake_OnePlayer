@@ -102,6 +102,12 @@ int mix_and_play (const void *inputBuffer, void *outputBuffer,
     }
     s->set_position(pos);
   }
+  else{
+	for (int i=0; (i<framesPerBuffer); i++) 
+		    buffer[i] = 0;
+	    
+  }
+	
   return 0;
 }
 
@@ -132,7 +138,7 @@ void Player::init() {
                          NULL,      /* No input. */
                          &outputParameters,
                          44100,
-                         512,       /* Frames per buffer. */
+                         2048,       /* Frames per buffer. */
                          paClipOff, /* We won't output out of range samples so don't bother clipping them. */
                          mix_and_play,
                          this );

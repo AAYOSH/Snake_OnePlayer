@@ -51,13 +51,13 @@ int main()
       Teclado *teclado = new Teclado();
       teclado->init();
       
-//       Audio::Sample *asample;
-//       asample = new Audio::Sample();
-//       asample->load("blip.dat");
-//       
-//       Audio::Player *player;
-//       player = new Audio::Player();
-//       player->init();
+      Audio::Sample *asample;
+      asample = new Audio::Sample();
+      asample->load("blip.dat");
+      
+      Audio::Player *player;
+      player = new Audio::Player();
+      player->init();
       
       
       // jogo snake_game
@@ -69,8 +69,8 @@ int main()
 		  break;
 	    if(c == 's'){
 		  snake->update_vel(0,1);
-// 		  asample->set_position(0);
-// 		  player->play(asample);
+		  asample->set_position(0);
+		  player->play(asample);
 	    }
 	    if(c == 'w'){
 		  snake->update_vel(0,-1);
