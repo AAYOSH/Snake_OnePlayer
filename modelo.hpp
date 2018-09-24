@@ -5,6 +5,7 @@
 #define model_hpp
 
 #include <thread>
+#include <vector>
 // acho que completo
 class Cobra_corpo{
       private:
@@ -30,14 +31,32 @@ class Cobra_corpo{
 	    int get_oldY();
 };
 
+class ListaDeCorpos {
+private:
+      std::vector<Cobra_corpo *> *corpos;
+      int comprimento;
+      
+public:
+      ListaDeCorpos();
+      void hard_copy(ListaDeCorpos *ldc);
+      void add_corpo(Cobra_corpo *c);
+      std::vector<Cobra_corpo *> *get_corpos();
+
+};
+
+
+
+
+
+
 // classe que verifica se a cobra em questao se colidiu
 class Choque {
       private:
-	    Cobra_corpo *cobra;
+	    ListaDeCorpos *lista;
       
       public:
-	    Choque(Cobra_corpo *cobra);
-	    bool colisao(Cobra_corpo *cobra);
+	    Choque(ListaDeCorpos *lista);
+	    bool colisao(ListaDeCorpos *lista);
       
       
 };
@@ -56,10 +75,10 @@ class Comida{
 
 class Movimento {
       private:
-	    Cobra_corpo *cobra;
+	    ListaDeCorpos *lista;
 	    Comida *food;
       public:
-	    Movimento(Cobra_corpo *cobra, Comida *food);
+	    Movimento(ListaDeCorpos *l, Comida *food);
 	    void update(float deltaT);
 };
 
@@ -84,10 +103,10 @@ class Teclado{
 // acho que completo
 class Tela{
       private:
-	    Cobra_corpo *cobra;
+	    ListaDeCorpos *lista, *lista_anterior;
 	    Comida *food;
       public:
-	    Tela(Cobra_corpo *cobra,Comida *food);
+	    Tela(ListaDeCorpos *ldc,Comida *food);
 	    ~Tela();
 	    void stop();
 	    void init();

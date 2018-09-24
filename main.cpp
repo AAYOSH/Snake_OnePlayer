@@ -30,21 +30,33 @@ int main()
       char derrota[] = "********************PERDEU******************";
       
       Comida *food = new Comida();
-      Cobra_corpo *snake = new Cobra_corpo(1, 1, 0, 0, 0);
+      Cobra_corpo *snake = new Cobra_corpo(1, 1, 0, 0, 0);// cria cabeca da cobra
       
+      // cria classe lista de corpos vazia 
+      ListaDeCorpos *l = new ListaDeCorpos();
+      l->add_corpo(snake);// adiciona cabeca na lista de corpos
       
       // cria classe Movimento
-      Movimento *m = new Movimento(snake,food);
+      Movimento *m = new Movimento(l,food);
 
       // cria classe tela
-      Tela *tela = new Tela(snake, food );
+      Tela *tela = new Tela(l, food );
       tela->init();
       // cria classe Choque
-      Choque *choque = new Choque(snake);
+      Choque *choque = new Choque(l);
       
       // cria classe teclado
       Teclado *teclado = new Teclado();
       teclado->init();
+      
+      Audio::Sample *asample;
+      asample = new Audio::Sample();
+      asample->load("blip.dat");
+      
+      Audio::Player *player;
+      player = new Audio::Player();
+      player->init();
+      
       
       uint64_t t0;
       uint64_t t1;
@@ -78,7 +90,7 @@ int main()
 	  
 	    m->update(deltaT);
 	    tela->update();
-	    if(choque->colisao(snake)){
+	    if(choque->colisao(l)){
 		  mvprintw(15,15,"%s",derrota);
 		  printw("TECLE S PARA SAIR");
 		  refresh();
