@@ -12,6 +12,7 @@
 #include <ncurses.h>
 #include<time.h> // para gerar comidas aleatorias
 #include<stdlib.h>
+#include "portaudio.h"
 #include "../headers/01-playback.hpp"
 
 using namespace std::chrono;
@@ -96,6 +97,8 @@ void Movimento::update(void){
       int foody = food->getcy();
 	// verificando caso a cobra pegue a comida, no caso somente a cabeca
       if( foodx == (*c)[0]->get_posicaoY() && foody == (*c)[0]->get_posicaoX() ){
+// 	    asample2->set_position(0);
+// 	    player->play(asample2);
 	    int aux = (*c).size();
 	    mvprintw(foodx,foody ," ");
 	    food->update();

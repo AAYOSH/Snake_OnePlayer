@@ -16,6 +16,7 @@
 #include <thread>
 #include <vector>
 #include <ncurses.h>
+#include "portaudio.h"
 #include "../headers/01-playback.hpp"
 //#include "../headers/model.hpp"
 #include "../headers/modelo.hpp"
@@ -40,7 +41,24 @@ int main()
       
       // cria classe Movimento
       Movimento *m = new Movimento(l,food);
-
+      
+      // inicializa som
+      Audio::Sample *asample;
+      asample = new Audio::Sample();
+      asample->load("/home/andre/projeto1_872/Audios/You-Lose-Sound-Effect.dat");
+      
+      Audio::Sample *asample1;
+      asample = new Audio::Sample();
+      asample->load("/home/andre/projeto1_872/Audios/move.dat");
+      
+      Audio::Sample *asample2;
+      asample = new Audio::Sample();
+      asample->load("/home/andre/projeto1_872/Audios/Bite.dat");
+      
+      Audio::Player *player;
+      player = new Audio::Player();
+      player->init();
+      std::this_thread::sleep_for (std::chrono::milliseconds(11200));
       // cria classe tela
       Tela *tela = new Tela(l, food );
       tela->init();
@@ -51,52 +69,44 @@ int main()
       Teclado *teclado = new Teclado();
       teclado->init();
       
-      Audio::Sample *asample;
-      asample = new Audio::Sample();
-      asample->load("blip.dat");
-      
-      Audio::Player *player;
-      player = new Audio::Player();
-      player->init();
       
       
       // jogo snake_game
-      
       while(1){
 	
 	    char c = teclado->getchar(); // leitura do teclado em thread separada
 	    if (c=='q') 
 		  break;
 	    if(c == 's'){
+		  asample1->set_position(0);
 		  snake->update_vel(0,1);
-		  asample->set_position(0);
-		  player->play(asample);
+		  player->play(asample1);
 	    }
 	    if(c == 'w'){
 		  snake->update_vel(0,-1);
-// 		  asample->set_position(0);
-// 		  player->play(asample);
+		  asample1->set_position(0);
+		  player->play(asample1);
 	    }
 	    if(c == 'd'){
 		  snake->update_vel(1,0);
-// 		  asample->set_position(0);
-// 		  player->play(asample);
+		  asample1->set_position(0);
+		  player->play(asample1);
 	    }
 	    if(c == 'a'){
 		  snake->update_vel(-1,0);
-// 		  asample->set_position(0);
-// 		  player->play(asample);
+		  asample1->set_position(0);
+		  player->play(asample1);
 	    }
 	  
 	    m->update(); // atualizado movimento do corpo
 	    tela->update(); // atualiza tela
 	    
 	    if(choque->colisao(l)){ // caso haja colisao, programa é encerrado
-		  // asample->set_position(0);
-		  //  player->play(asample);
-		  printw("DIGITE QUALQUER TECLA PARA SAIR");
+		  asample->set_position(0);
+		  player->play(asample);
+		  mvprintw(10,25,"DIGITE QUALQUER TECLA PARA SAIR");
 		  refresh();
-		  std::this_thread::sleep_for (std::chrono::milliseconds(1000));
+		  std::this_thread::sleep_for (std::chrono::milliseconds(400));
 		  getch();
 		  break;
 	    }
@@ -105,7 +115,7 @@ int main()
       }
       
       
-      
+      player->stop();
       tela->stop();
       teclado->stop();
       

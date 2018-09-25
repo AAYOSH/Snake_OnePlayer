@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 #include <random>
-
+#include "portaudio.h"
 #include "../headers/01-playback.hpp"
 
 using namespace Audio;
@@ -138,7 +138,7 @@ void Player::init() {
                          NULL,      /* No input. */
                          &outputParameters,
                          44100,
-                         2048,       /* Frames per buffer. */
+                         512,       /* Frames per buffer. */
                          paClipOff, /* We won't output out of range samples so don't bother clipping them. */
                          mix_and_play,
                          this );

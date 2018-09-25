@@ -9,7 +9,7 @@ CC = g++
 CFLAGS = -std=c++11 -lpthread 
 NCURSES_FLAGS = -lncurses
 #PORTAUDIO_FLAGS = -lportaudio -ljack -lrt -lasound -lm
-PORTAUDIO_FLAGS = -lportaudio -ljack -lrt -lasound -lm
+PORTAUDIO_FLAGS = -lportaudio
 ASSETS_ZIP = audio/assets/assets.zip
 ASSETS_DIR = audio/assets
 STAT_DIR = statistics
