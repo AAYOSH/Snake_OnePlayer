@@ -70,9 +70,10 @@ class Movimento {
       private:
 	    ListaDeCorpos *lista;
 	    Comida *food;
+
       public:
 	    Movimento(ListaDeCorpos *l, Comida *food);
-	    void update(void);
+	    int update(void);
 };
 
 

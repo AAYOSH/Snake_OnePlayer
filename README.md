@@ -1,7 +1,8 @@
 # Projeto 1 de 872 Snake Game
 
 # Instalação
-Para poder jogar, clone o repositório, digitando Make run o código deverá rodar.
+Para poder jogar é necessário possuir as bibliotecas ncurses e portaudio. Clone o repositório em seu computador
+e rode o makerun, após isso, seu jogo deve inicializar.
 
 
 # Regras

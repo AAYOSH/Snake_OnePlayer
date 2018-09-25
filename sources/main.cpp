@@ -39,26 +39,29 @@ int main()
       ListaDeCorpos *l = new ListaDeCorpos();
       l->add_corpo(snake);// adiciona cabeca na lista de corpos
       
-      // cria classe Movimento
-      Movimento *m = new Movimento(l,food);
       
-      // inicializa som
+      // inicializa sons
       Audio::Sample *asample;
       asample = new Audio::Sample();
-      asample->load("/home/andre/projeto1_872/Audios/You-Lose-Sound-Effect.dat");
+      asample->load("Audios/You-Lose-Sound-Effect.dat");
       
       Audio::Sample *asample1;
-      asample = new Audio::Sample();
-      asample->load("/home/andre/projeto1_872/Audios/move.dat");
+      asample1 = new Audio::Sample();
+      asample1->load("Audios/blip.dat");
       
       Audio::Sample *asample2;
-      asample = new Audio::Sample();
-      asample->load("/home/andre/projeto1_872/Audios/Bite.dat");
+      asample2 = new Audio::Sample();
+      asample2->load("Audios/Bite.dat");
       
       Audio::Player *player;
       player = new Audio::Player();
       player->init();
-      std::this_thread::sleep_for (std::chrono::milliseconds(11200));
+      
+      // cria classe Movimento
+      Movimento *m = new Movimento(l,food);
+      
+    
+      std::this_thread::sleep_for (std::chrono::milliseconds(1100)); // evitar que erros do som aparecam na tela
       // cria classe tela
       Tela *tela = new Tela(l, food );
       tela->init();
@@ -69,6 +72,9 @@ int main()
       Teclado *teclado = new Teclado();
       teclado->init();
       
+      int max_x;
+      int max_y;
+      getmaxyx(stdscr,max_y,max_x); 
       
       
       // jogo snake_game
@@ -98,13 +104,16 @@ int main()
 		  player->play(asample1);
 	    }
 	  
-	    m->update(); // atualizado movimento do corpo
+	    if(m->update()){// atualizado movimento do corpo
+		  asample2->set_position(0);
+		  player->play(asample2);
+	    }
 	    tela->update(); // atualiza tela
 	    
 	    if(choque->colisao(l)){ // caso haja colisao, programa é encerrado
 		  asample->set_position(0);
 		  player->play(asample);
-		  mvprintw(10,25,"DIGITE QUALQUER TECLA PARA SAIR");
+		  mvprintw(max_y/2-1,max_x/2-1,"DIGITE QUALQUER TECLA PARA SAIR");
 		  refresh();
 		  std::this_thread::sleep_for (std::chrono::milliseconds(400));
 		  getch();

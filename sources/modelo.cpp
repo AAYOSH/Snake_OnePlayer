@@ -56,9 +56,10 @@ bool Choque::colisao(ListaDeCorpos *lista){
 Movimento::Movimento(ListaDeCorpos *l, Comida *food){
       this->food = food;
       this->lista  = l;
+  
 }
-// atualiza as posicoes de cada parte da cobra
-void Movimento::update(void){
+// atualiza as posicoes de cada parte da cobra, retorna 1 caso comeu a comida
+int Movimento::update(void){
       std::vector<Cobra_corpo *> *c = this->lista->get_corpos();
       
       // aqui faco o movimento para a cabeca, separado pois é a unica que possui velocidade
@@ -97,14 +98,14 @@ void Movimento::update(void){
       int foody = food->getcy();
 	// verificando caso a cobra pegue a comida, no caso somente a cabeca
       if( foodx == (*c)[0]->get_posicaoY() && foody == (*c)[0]->get_posicaoX() ){
-// 	    asample2->set_position(0);
-// 	    player->play(asample2);
 	    int aux = (*c).size();
 	    mvprintw(foodx,foody ," ");
 	    food->update();
 	    Cobra_corpo *nova = new Cobra_corpo( 1, 0,(*c)[aux-1]->get_oldX(), (*c)[aux-1]->get_oldY() ); // adiciona nova parte ao corpo da cobra
 	    this->lista->add_corpo(nova);
+	    return 1;
       }
+      return 0;
 }
      
 /////*************************** CLASS Comida **********************88//////////////////
